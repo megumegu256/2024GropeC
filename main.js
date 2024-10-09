@@ -2,8 +2,8 @@
 const canvas = document.getElementById("ShotGame");
 const ctx = canvas.getContext("2d");
 ctx.clearRect(0, 0, canvas.width, canvas.height);
-canvas.width = 1920;
-canvas.height = 1080;
+canvas.width = 960;
+canvas.height = 512;
 document.getElementById('ShotGame').style.backgroundColor = 'SkyBlue';
     
 
