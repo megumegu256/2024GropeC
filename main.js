@@ -1,12 +1,20 @@
-let counter = 0;
+//初期設定
+const canvas = document.getElementById("eggCanvas");
+const ctx = canvas.getContext("2d");
 
 
 
+//タイトル画面
+document.addEventListener('keydown', event => {
+    // 変数eventの中身はKeyboardEventオブジェクト
+    console.log(event);
+});
 
 
-//アニメーション
+
+//ゲーム画面
 function incrementCounter() {
-    counter++;
+    
 
     setTimeout(sleep, 10);
     function sleep(){
@@ -14,3 +22,6 @@ function incrementCounter() {
     }
 }
 requestAnimationFrame(incrementCounter);
+
+
+//リザルト画面
