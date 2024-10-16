@@ -84,8 +84,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         //タイマー表示
         const countdown = document.createElement('div');
         countdown.style.position = 'absolute';
-        countdown.style.top = '10px';
-        countdown.style.right = '10px';
+        countdown.style.top = `${(window.innerHeight / 2)}px`;
+        countdown.style.left = '10px';
         countdown.style.fontSize = '24px';
         countdown.style.color = 'white';
         document.body.appendChild(countdown);
