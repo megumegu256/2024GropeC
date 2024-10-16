@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let timeLeft = 60;
         const targets = [];
 
-        //タイマー表示
+        //タイマー
         const countdown = document.createElement('div');
         countdown.style.position = 'absolute';
         countdown.style.top = '10px';
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         }, 1000);
 
-        //スコア更新関数
+        //スコア表示更新関数
         function updateScore(points) {
             score += points;
             scoreDisplay.textContent = `Score: ${score}`;
