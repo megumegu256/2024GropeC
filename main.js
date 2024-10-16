@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         countdownScreen.style.justifyContent = 'center';
         countdownScreen.style.alignItems = 'center';
         countdownScreen.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        countdownScreen.style.zIndex = '1000';
+        countdownScreen.style.zIndex = '-1';
         document.body.appendChild(countdownScreen);
 
         let countdownValue = 3;
@@ -76,28 +76,32 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }, 1000);
     }
 
+    let score = 0;
+    let timeLeft = 60;
+
+    //タイマー表示
+    const countdown = document.createElement('div');
+    countdown.style.position = 'absolute';
+    countdown.style.top = `${(window.innerHeight / 2)}px`;
+    countdown.style.left = '10px';
+    countdown.style.fontSize = '24px';
+    countdown.style.color = 'white';
+    countdown.style.zIndex = '-1';
+    document.body.appendChild(countdown);
+
+    //スコア表示
+    const scoreDisplay = document.createElement('div');
+    scoreDisplay.style.position = 'absolute';
+    scoreDisplay.style.top = `${(window.innerHeight / 2)}px`;
+    scoreDisplay.style.right = `20px`;
+    scoreDisplay.style.fontSize = '24px';
+    scoreDisplay.style.color = 'white';
+    scoreDisplay.style.zIndex = '-1';
+    document.body.appendChild(scoreDisplay);
+
+
     function startGame() {
-        let score = 0;
-        let timeLeft = 60;
         const targets = [];
-
-        //タイマー表示
-        const countdown = document.createElement('div');
-        countdown.style.position = 'absolute';
-        countdown.style.top = `${(window.innerHeight / 2)}px`;
-        countdown.style.left = '10px';
-        countdown.style.fontSize = '24px';
-        countdown.style.color = 'white';
-        document.body.appendChild(countdown);
-
-        //スコア表示
-        const scoreDisplay = document.createElement('div');
-        scoreDisplay.style.position = 'absolute';
-        scoreDisplay.style.top = `${(window.innerHeight / 2)}px`;
-        scoreDisplay.style.right = `20px`;
-        scoreDisplay.style.fontSize = '24px';
-        scoreDisplay.style.color = 'white';
-        document.body.appendChild(scoreDisplay);
 
         //タイマー更新
         const timerInterval = setInterval(() => {
@@ -171,7 +175,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             resultScreen.style.zIndex = '1000';
 
             const resultText = document.createElement('div');
-            resultText.textContent = `Game Over! Your score: ${score}`;
+            resultText.textContent = `Game Over! Score: ${score}`;
             resultText.style.fontSize = '24px';
             resultText.style.color = 'white';
             resultText.style.marginBottom = '20px';
@@ -184,6 +188,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             retryButton.addEventListener('click', () => {
                 resultScreen.remove();
                 score = 0;
+                timeLeft = 60;
+                updateScore(0);
+                
                 startGame();
             });
 
