@@ -93,8 +93,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         //スコア表示
         const scoreDisplay = document.createElement('div');
         scoreDisplay.style.position = 'absolute';
-        scoreDisplay.style.top = '10px';
-        scoreDisplay.style.left = '10px';
+        scoreDisplay.style.top = `${(window.innerHeight / 2)}px`;
+        scoreDisplay.style.right = `20px`;
         scoreDisplay.style.fontSize = '24px';
         scoreDisplay.style.color = 'white';
         document.body.appendChild(scoreDisplay);
