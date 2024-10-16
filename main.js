@@ -131,6 +131,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             target.style.top = `${Math.random() * (window.innerHeight - size)}px`;
             target.style.left = `${Math.random() * (window.innerWidth - size)}px`;
             target.dataset.score = score;
+            
             target.addEventListener('click', () => {
                 updateScore(parseInt(target.dataset.score));
                 target.remove();
