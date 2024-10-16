@@ -131,7 +131,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 updateScore(parseInt(target.dataset.score));
                 target.remove();
                 targets.splice(targets.indexOf(target), 1);
-                spawnTargets();
+
+                if (targets.length<8){ //3つ減ると新たに3つスポーン
+                    spawnTargets();
+                }
+
             });
             document.body.appendChild(target);
             targets.push(target);
@@ -179,6 +183,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             retryButton.style.cursor = 'pointer';
             retryButton.addEventListener('click', () => {
                 resultScreen.remove();
+                score = 0;
                 startGame();
             });
 
