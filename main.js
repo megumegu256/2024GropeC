@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     "use strict";
     document.body.style.backgroundColor = 'skyblue'; //背景色
+
+    /*
+    河内の背景
+    */
+
     //ブラウザに対応
     if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
@@ -120,12 +125,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
 
         //的の作成関数
-        function createTarget(score, size) {
+        function createTarget(score, size, color) {
             const target = document.createElement('div');
             target.style.position = 'absolute';
             target.style.width = `${size}px`;
             target.style.height = `${size}px`;
-            target.style.backgroundColor = 'red';
+            target.style.backgroundColor = `${color}`;
             target.style.borderRadius = '50%';
             target.style.cursor = 'pointer';
             target.style.top = `${Math.random() * (window.innerHeight - size)}px`;
@@ -151,11 +156,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             while (targets.length < 10) {
                 const rand = Math.random();
                 if (rand < 0.2) {
-                    createTarget(5, 20); //小
+                    createTarget(5, 20, 'red'); //小
                 } else if (rand < 0.5) {
-                    createTarget(3, 40); //中
+                    createTarget(3, 40, 'orange'); //中
                 } else {
-                    createTarget(1, 60); //大
+                    createTarget(1, 60, 'green'); //大
                 }
             }
         }
@@ -191,8 +196,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 score = 0;
                 timeLeft = 60;
                 updateScore(0);
-                
-                startGame();
+                showCountdown(startGame);
             });
 
             resultScreen.appendChild(resultText);
