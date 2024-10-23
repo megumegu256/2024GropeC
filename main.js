@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     "use strict";
+    
     document.body.style.backgroundColor = 'skyblue'; //背景色
     document.onselectstart = () => false;
+    
     /*
     河内の背景
     */
@@ -37,7 +39,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     startButton.textContent = 'ゲームスタート';
     startButton.style.padding = '20px';
     startButton.style.fontSize = '24px';
-    startButton.style.cursor = 'pointer';
+    startButton.style.cursor = 'crosshair';
 
     titleScreen.appendChild(startButton);
     document.body.appendChild(titleScreen);
@@ -136,7 +138,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             target.style.height = `${size}px`;
             target.style.backgroundColor = `${color}`;
             target.style.borderRadius = '50%';
-            target.style.cursor = 'pointer';
+            target.style.cursor = 'crosshair';
             target.style.top = `${Math.random() * (window.innerHeight - size)}px`;
             target.style.left = `${Math.random() * (window.innerWidth - size)}px`;
             target.dataset.score = score;
@@ -194,7 +196,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             retryButton.textContent = 'リトライ';
             retryButton.style.padding = '20px';
             retryButton.style.fontSize = '24px';
-            retryButton.style.cursor = 'pointer';
+            retryButton.style.cursor = 'crosshair';
             retryButton.addEventListener('click', () => {
                 resultScreen.remove();
                 score = 0;
