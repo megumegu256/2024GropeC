@@ -160,9 +160,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             while (targets.length < 10) {
                 const rand = Math.random();
                 if (rand < 0.2) {
-                    createTarget(5, 20, 'red'); //小
+                    createTarget(5, 30, 'red'); //小
                 } else if (rand < 0.5) {
-                    createTarget(3, 40, 'orange'); //中
+                    createTarget(3, 45, 'orange'); //中
                 } else {
                     createTarget(1, 60, 'green'); //大
                 }
