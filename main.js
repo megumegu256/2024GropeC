@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     "use strict";
     document.body.style.backgroundColor = 'skyblue'; //背景色
-
+    document.onselectstart = () => false;
     /*
     河内の背景
     */
@@ -112,8 +112,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const timerInterval = setInterval(() => {
             timeLeft--;
             countdown.textContent = `Time: ${timeLeft}s`;
+            if(timeLeft <=5 ){
+                document.body.style.backgroundColor = 'rgb(192, 0, 0)';
+            }
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
+                document.body.style.backgroundColor = 'skyblue';
                 endGame();
             }
         }, 1000);
@@ -137,7 +141,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             target.style.left = `${Math.random() * (window.innerWidth - size)}px`;
             target.dataset.score = score;
             
-            target.addEventListener('click', () => {
+            target.addEventListener('mousedown', () => {
                 updateScore(parseInt(target.dataset.score));
                 target.remove();
                 targets.splice(targets.indexOf(target), 1);
@@ -177,7 +181,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             resultScreen.style.display = 'flex';
             resultScreen.style.justifyContent = 'center';
             resultScreen.style.alignItems = 'center';
-            resultScreen.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            resultScreen.style.backgroundColor = 'rgb(0, 0, 0)';
             resultScreen.style.zIndex = '1000';
 
             const resultText = document.createElement('div');
