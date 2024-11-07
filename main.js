@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     let score = 0;
-    let timeLeft = 60;
+    let timeLeft = 10;
 
     //タイマー表示
     const countdown = document.createElement('div');
@@ -123,9 +123,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const timerInterval = setInterval(() => {
             timeLeft--;
             countdown.textContent = `Time: ${timeLeft}s`;
-            if(timeLeft <=5 ){
-                document.body.style.backgroundColor = 'rgb(192, 0, 0)';
-            }
+            
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
                 document.body.style.backgroundColor = 'skyblue';
@@ -151,6 +149,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
             target.style.top = `${Math.random() * (window.innerHeight - size)}px`;
             target.style.left = `${Math.random() * (window.innerWidth - size)}px`;
             target.dataset.score = score;
+            if(timeLeft>6){
+                target.dataset.function = setTimeout(() => {
+                    if (targets.indexOf(target)!==-1 && timeLeft>6){
+                        createTarget(score, size, color);
+                        target.remove();
+                        targets.splice(targets.indexOf(target), 1);
+                    }
+                }, 5000);
+            }
+            
+            
 
             if (color === 0) {
                 target.src = "IMG_4076.png";
@@ -162,19 +171,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
             // } else {
             //     target.style.backgroundColor = `${color}`;
             // }
-            target.style.backgroundSize = size + 'px' + ' ' + size + 'px';
-            target.style.backgroundPosition = 'center';
-
             
+
             target.addEventListener('mousedown', () => {
                 updateScore(parseInt(target.dataset.score));
                 target.remove();
-                targets.splice(targets.indexOf(target), 1);
-
-                if (targets.length<8){ //3つ減ると新たに3つスポーン
-                    spawnTargets();
+                if (targets.indexOf(target)!==-1){
+                    targets.splice(targets.indexOf(target), 1);
+                    if (targets.length<8){ //3つ減ると新たに3つスポーン
+                        spawnTargets();
+                    }
                 }
-
             });
             document.body.appendChild(target);
             targets.push(target);
@@ -197,6 +204,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         //ゲーム終了関数
         function endGame() {
             targets.forEach(target => target.remove());
+            console.log(targets)
             const resultScreen = document.createElement('div');
             resultScreen.style.position = 'absolute';
             resultScreen.style.top = '0';
@@ -206,7 +214,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             resultScreen.style.display = 'flex';
             resultScreen.style.justifyContent = 'center';
             resultScreen.style.alignItems = 'center';
-            resultScreen.style.backgroundColor = 'rgb(0, 0, 0)';
+            resultScreen.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
             resultScreen.style.zIndex = '1000';
 
             const resultText = document.createElement('div');
