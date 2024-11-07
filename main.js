@@ -141,26 +141,28 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         //的の作成関数
         function createTarget(score, size, color) {
-            const target = document.createElement('div');
+            // const target = document.createElement('div');
+            const target = document.createElement('img');
             target.style.position = 'absolute';
             target.style.width = `${size}px`;
-            target.style.height = `${size}px`;
-            target.style.borderRadius = '50%';
+            // target.style.height = `${size}px`;
+            // target.style.borderRadius = '50%';
             target.style.cursor = 'crosshair';
             target.style.top = `${Math.random() * (window.innerHeight - size)}px`;
             target.style.left = `${Math.random() * (window.innerWidth - size)}px`;
             target.dataset.score = score;
 
             if (color === 0) {
-                target.style.backgroundImage = 'url("IMG_4074.png")';
+                target.src = "IMG_4076.png";
             } else if (color === 1) {
-                target.style.backgroundImage = 'url("IMG_4075.png")';
+                target.src= "IMG_4075.png";
             } else if (color === 2) {
-                target.style.backgroundImage = 'url("IMG_4076.png")';
-            } else {
-                target.style.backgroundColor = `${color}`;
+                target.src= "IMG_4074.png";
             }
-            target.style.backgroundSize = 'cover';
+            // } else {
+            //     target.style.backgroundColor = `${color}`;
+            // }
+            target.style.backgroundSize = size + 'px' + ' ' + size + 'px';
             target.style.backgroundPosition = 'center';
 
             
