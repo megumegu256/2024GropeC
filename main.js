@@ -4,9 +4,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.body.style.backgroundColor = 'skyblue'; //背景色
     document.onselectstart = () => false;
     
-    /*
-    河内の背景
-    */
+    
+    //河内背景
+    const backgroundImage = new Image();
+    backgroundImage.src = 'IMG_4073.png';
+    backgroundImage.style.position = 'absolute';
+    backgroundImage.style.top = '0';
+    backgroundImage.style.left = '0';
+    backgroundImage.style.width = '100%';
+    backgroundImage.style.height = '100%';
+    backgroundImage.style.zIndex = '-2';
+    document.body.appendChild(backgroundImage);
+    
 
     //ブラウザに対応
     if (document.documentElement.requestFullscreen) {
@@ -136,12 +145,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
             target.style.position = 'absolute';
             target.style.width = `${size}px`;
             target.style.height = `${size}px`;
-            target.style.backgroundColor = `${color}`;
             target.style.borderRadius = '50%';
             target.style.cursor = 'crosshair';
             target.style.top = `${Math.random() * (window.innerHeight - size)}px`;
             target.style.left = `${Math.random() * (window.innerWidth - size)}px`;
             target.dataset.score = score;
+
+            if (color === 0) {
+                target.style.backgroundImage = 'url("IMG_4074.png")';
+            } else if (color === 1) {
+                target.style.backgroundImage = 'url("IMG_4075.png")';
+            } else if (color === 2) {
+                target.style.backgroundImage = 'url("IMG_4076.png")';
+            } else {
+                target.style.backgroundColor = `${color}`;
+            }
+            target.style.backgroundSize = 'cover';
+            target.style.backgroundPosition = 'center';
+
             
             target.addEventListener('mousedown', () => {
                 updateScore(parseInt(target.dataset.score));
@@ -162,11 +183,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             while (targets.length < 10) {
                 const rand = Math.random();
                 if (rand < 0.2) {
-                    createTarget(5, 30, 'red'); //小
+                    createTarget(5, 30, 0); //小
                 } else if (rand < 0.5) {
-                    createTarget(3, 45, 'orange'); //中
+                    createTarget(3, 45, 1); //中
                 } else {
-                    createTarget(1, 60, 'green'); //大
+                    createTarget(1, 60, 2); //大
                 }
             }
         }
