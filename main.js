@@ -139,19 +139,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         //的の作成関数
         function createTarget(score, size, color) {
-            // const target = document.createElement('div');
-            const target = document.createElement('img');
+            const target = document.createElement('div');
+            const target_img = document.createElement('img');
             target.style.position = 'absolute';
-            target.style.width = `${size}px`;
-            // target.style.height = `${size}px`;
-            // target.style.borderRadius = '50%';
-            target.style.cursor = 'crosshair';
+            target_img.style.width = `${size}px`;
             target.style.top = `${Math.random() * (window.innerHeight - size)}px`;
             target.style.left = `${Math.random() * (window.innerWidth - size)}px`;
             target.dataset.score = score;
             if(timeLeft>6){
-                target.dataset.function = setTimeout(() => {
-                    if (targets.indexOf(target)!==-1 && timeLeft>6){
+                target.function = setTimeout(() => {
+                    if (targets.indexOf(target)!==-1){
                         createTarget(score, size, color);
                         target.remove();
                         targets.splice(targets.indexOf(target), 1);
@@ -162,11 +159,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             
 
             if (color === 0) {
-                target.src = "IMG_4076.png";
+                target_img.src = "IMG_4076.png";
             } else if (color === 1) {
-                target.src= "IMG_4075.png";
+                target_img.src= "IMG_4075.png";
             } else if (color === 2) {
-                target.src= "IMG_4074.png";
+                target_img.src= "IMG_4074.png";
             }
             // } else {
             //     target.style.backgroundColor = `${color}`;
@@ -183,6 +180,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     }
                 }
             });
+            target.appendChild(target_img)
             document.body.appendChild(target);
             targets.push(target);
         }
