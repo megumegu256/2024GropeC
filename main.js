@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.body.style.backgroundColor = 'skyblue'; //背景色
     document.onselectstart = () => false;
     
-    
+
     //河内背景
     const backgroundImage = new Image();
     backgroundImage.src = 'IMG_4073.png';
@@ -16,6 +16,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     backgroundImage.style.zIndex = '-100';
     document.body.appendChild(backgroundImage);
     
+    const preloadImage = src => {
+        const img = new Image();
+        img.src = src;
+    };
+    const imagesToPreload = ["IMG_4074.png","IMG_4075.png","IMG_4076.png"];
+    imagesToPreload.forEach(preloadImage);
 
     //ブラウザに対応
     if (document.documentElement.requestFullscreen) {
