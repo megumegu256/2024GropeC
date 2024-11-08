@@ -8,6 +8,35 @@
             content="width=device-width, initial-scale=1.0, user-scalable=yes"
         />
         <link rel="stylesheet" href="main.css" />
+        <style>
+            /* スライドアップとフェードアウトのアニメーション */
+            @keyframes slideUpFadeOut {
+                0% {
+                opacity: 1;
+                transform: translateY(0);
+                }
+                100% {
+                opacity: 0;
+                transform: translateY(-50px); /* 50px 上に移動 */
+                }
+            }
+        
+            /* アニメーション用のクラス */
+            .slide-up-fade-out {
+                animation: slideUpFadeOut 1s ease forwards;
+            }
+        
+            /* 追加される要素のスタイル */
+            .new-element {
+                width: 200px;
+                padding: 10px;
+                background-color: lightcoral;
+                color: white;
+                text-align: center;
+                border-radius: 5px;
+                margin: 20px auto;
+            }
+        </style>
     </head>
     <body>
         <script src="main.js"></script>

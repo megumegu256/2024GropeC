@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     backgroundImage.style.left = '0';
     backgroundImage.style.width = '100%';
     backgroundImage.style.height = '100%';
-    backgroundImage.style.zIndex = '-2';
+    backgroundImage.style.zIndex = '-100';
     document.body.appendChild(backgroundImage);
     
 
@@ -57,7 +57,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         titleScreen.style.display = 'none';
         showCountdown(startGame);
     });
-
+    
+    let score = 0;
+    let timeLeft = 60;
     //3カウント
     function showCountdown(callback) {
         const countdownScreen = document.createElement('div');
@@ -87,13 +89,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
             } else {
                 clearInterval(countdownInterval);
                 countdownScreen.remove();
+                scoreDisplay.textContent = `Score: ${score}`;
+                countdown.textContent = `Time: ${timeLeft}s`
                 callback();
             }
         }, 1000);
     }
 
-    let score = 0;
-    let timeLeft = 60;
 
     //タイマー表示
     const countdown = document.createElement('div');
@@ -102,7 +104,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     countdown.style.left = '10px';
     countdown.style.fontSize = '24px';
     countdown.style.color = 'white';
-    countdown.style.zIndex = '-1';
+    countdown.style.zIndex = '-3';
     document.body.appendChild(countdown);
 
     //スコア表示
@@ -112,7 +114,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     scoreDisplay.style.right = `20px`;
     scoreDisplay.style.fontSize = '24px';
     scoreDisplay.style.color = 'white';
-    scoreDisplay.style.zIndex = '-1';
+    scoreDisplay.style.zIndex = '-3';
     document.body.appendChild(scoreDisplay);
 
 
@@ -123,7 +125,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const timerInterval = setInterval(() => {
             timeLeft--;
             countdown.textContent = `Time: ${timeLeft}s`;
-            
+            if (timeLeft <= 10) countdown.style.color = `red`;
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
                 document.body.style.backgroundColor = 'skyblue';
@@ -136,20 +138,51 @@ document.addEventListener('DOMContentLoaded', (event) => {
             score += points;
             scoreDisplay.textContent = `Score: ${score}`;
         }
+        function killedScore(target){
+            const strdiv = document.createElement('div');
+            const strp = document.createElement('p');
+            strp.textContent = `+${target.dataset.score}`;
+            strp.style.color = `yellow`;
+            strp.style.fontSize = "30px";
+            strp.style.fontFamily = 'Impact';
+            strdiv.style.zIndex = "-1";
+            strdiv.style.userSelect = 'none';
+            strdiv.style.position = 'absolute';
+            strdiv.style.top = target.style.top;
+            strdiv.style.left = target.style.left;
+            strdiv.classList.add("slide-up-fade-out")
+            strdiv.function = setTimeout(() => {
+                strdiv.remove();
+            }, 1000);
+            strdiv.appendChild(strp);
+            document.body.appendChild(strdiv);
+        }
 
         //的の作成関数
         function createTarget(score, size, color) {
             const target = document.createElement('div');
+            const target_2d = document.createElement('div');
             const target_img = document.createElement('img');
+            target.classList = 'image';
+            target_2d.classList = '2d';
+            target_2d.style.backgroundColor = 'rgba(0,0,0,0)';
             target.style.position = 'absolute';
+            target_2d.style.position = 'absolute';
+            target_2d.style.cursor = 'crosshair';
             target_img.style.width = `${size}px`;
+            target_img.style.height = `auto`;
+            target_2d.style.width = `${size}px` ;
+            target.style.zIndex = '-2';
             target.style.top = `${Math.random() * (window.innerHeight - size)}px`;
             target.style.left = `${Math.random() * (window.innerWidth - size)}px`;
+            target_2d.style.top = target.style.top;
+            target_2d.style.left = target.style.left;
             target.dataset.score = score;
             if(timeLeft>6){
-                target.function = setTimeout(() => {
+                target_2d.function = setTimeout(() => {
                     if (targets.indexOf(target)!==-1){
                         createTarget(score, size, color);
+                        target_2d.remove();
                         target.remove();
                         targets.splice(targets.indexOf(target), 1);
                     }
@@ -157,7 +190,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
             
             
-
+            
             if (color === 0) {
                 target_img.src = "IMG_4076.png";
             } else if (color === 1) {
@@ -165,13 +198,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
             } else if (color === 2) {
                 target_img.src= "IMG_4074.png";
             }
-            // } else {
-            //     target.style.backgroundColor = `${color}`;
-            // }
             
 
-            target.addEventListener('mousedown', () => {
+            target_2d.addEventListener('mousedown', () => {
                 updateScore(parseInt(target.dataset.score));
+                killedScore(target);
+                target_2d.remove();
                 target.remove();
                 if (targets.indexOf(target)!==-1){
                     targets.splice(targets.indexOf(target), 1);
@@ -183,6 +215,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             target.appendChild(target_img)
             document.body.appendChild(target);
             targets.push(target);
+            target_2d.style.height = target_img.naturalHeight*size/target_img.naturalWidth;
+            document.body.appendChild(target_2d);
         }
 
         //的スポーン関数
@@ -210,6 +244,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             resultScreen.style.width = '100%';
             resultScreen.style.height = '100%';
             resultScreen.style.display = 'flex';
+            resultScreen.style.flexFlow = 'column';
             resultScreen.style.justifyContent = 'center';
             resultScreen.style.alignItems = 'center';
             resultScreen.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
@@ -230,6 +265,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 resultScreen.remove();
                 score = 0;
                 timeLeft = 60;
+                countdown.style.color = `white`;
                 updateScore(0);
                 showCountdown(startGame);
             });
@@ -238,7 +274,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             resultScreen.appendChild(retryButton);
             document.body.appendChild(resultScreen);
         }
-
+        console.log(document.getElementsByTagName('div'))
         //ゲーム開始
         spawnTargets();
     }
