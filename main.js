@@ -1,20 +1,17 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     "use strict";
     const BGM = new Audio('BGM.mp3');
+    BGM.volume = 0.3;
+    BGM.loop = 'true';
     document.addEventListener('mousedown', () => {
         const bang = new Audio('拳銃を撃つ.mp3')
         bang.playbackRate = 2.5;
         bang.volume = 0.15;
         bang.play()
+        BGM.play();
     })
     document.body.style.backgroundColor = 'skyblue'; //背景色
     document.onselectstart = () => false;
-    BGM.volume = 0.3;
-    // BGM.muted = true;
-    BGM.loop = 'true';
-    document.addEventListener('mouseover',() => {
-        BGM.play();
-    })
     //河内背景
     const backgroundImage = new Image();
     backgroundImage.src = 'IMG_4073.png';
@@ -75,7 +72,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         titleScreen.style.display = 'none';
         prepared.play();
         showCountdown(startGame);
-        // BGM.muted = false;
     });
     
     let score = 0;
@@ -150,7 +146,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
                 document.body.style.backgroundColor = 'skyblue';
-                // BGM.muted = true;
                 endGame();
             }
         }, 1000);
