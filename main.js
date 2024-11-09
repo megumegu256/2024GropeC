@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     startButton.textContent = 'ゲームスタート';
     startButton.style.padding = '20px';
     startButton.style.fontSize = '24px';
-    startButton.style.width = '12em'
     startButton.style.cursor = 'crosshair';
 
     titleScreen.appendChild(startButton);
