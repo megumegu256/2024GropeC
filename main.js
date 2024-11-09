@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         }, 1000);
     }
-
+    let first=10;
 
     //タイマー表示
     const countdown = document.createElement('div');
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             target_2d.style.position = 'absolute';
             target_2d.style.cursor = 'crosshair';
             target_img.style.width = `${size}px`;
-            target_img.style.height = `auto`;
+            target.style.cursor = 'wait'
             target_2d.style.width = `${size}px` ;
             target.style.zIndex = '-2';
             target.style.top = `${Math.random() * (window.innerHeight - size)}px`;
@@ -184,7 +184,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
             target_2d.style.top = target.style.top;
             target_2d.style.left = target.style.left;
             target.dataset.score = score;
-            if(timeLeft>6){
+            if(first){
+                first--;
+                target_2d.function = setTimeout(() => {
+                    if (targets.indexOf(target)!==-1){
+                        createTarget(score, size, color);
+                        target_2d.remove();
+                        target.remove();
+                        targets.splice(targets.indexOf(target), 1);
+                    }
+                }, 4);
+            }else if(timeLeft>6){
                 target_2d.function = setTimeout(() => {
                     if (targets.indexOf(target)!==-1){
                         createTarget(score, size, color);
@@ -271,6 +281,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 resultScreen.remove();
                 score = 0;
                 timeLeft = 60;
+                first = 10; 
                 countdown.style.color = `white`;
                 updateScore(0);
                 showCountdown(startGame);
