@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
     
     let score = 0;
-    let timeLeft = 10;
+    let timeLeft = 60;
     //3カウント
     function showCountdown(callback) {
         const countdownScreen = document.createElement('div');
