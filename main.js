@@ -67,7 +67,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     backgroundImage.addEventListener('load',()=>{
         document.body.appendChild(titleScreen);
         BGM.play();
-        BGM.muted = false;
+        setTimeout(() => {
+            BGM.muted = false;
+        }, 100);
     })
 
     startButton.addEventListener('click', () => {
