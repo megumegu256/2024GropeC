@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
     
     let score = 0;
-    let timeLeft = 60;
+    let timeLeft = 5;
     //3カウント
     function showCountdown(callback) {
         const countdownScreen = document.createElement('div');
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         target_2d.remove();
                         target.remove();
                         targets.splice(targets.indexOf(target), 1);
-                        targets2d.splice(targets2d.indexOf(target), 1);
+                        targets2d.splice(targets2d.indexOf(target_2d), 1);
                     }
                 }, 4);
             }else if(timeLeft>6){
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         target_2d.remove();
                         target.remove();
                         targets.splice(targets.indexOf(target), 1);
-                        targets2d.splice(targets2d.indexOf(target), 1);
+                        targets2d.splice(targets2d.indexOf(target_2d), 1);
                     }
                 }, 5000);
             }
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 target.remove();
                 if (targets.indexOf(target)!==-1){
                     targets.splice(targets.indexOf(target), 1);
-                    targets2d.splice(targets2d.indexOf(target), 1);
+                    targets2d.splice(targets2d.indexOf(target_2d), 1);
                     if (targets.length<8){ //3つ減ると新たに3つスポーン
                         spawnTargets();
                     }
@@ -259,8 +259,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         //ゲーム終了関数
         function endGame() {
+            targets2d.forEach(target => target.remove());
             targets.forEach(target => target.remove());
-            console.log(targets)
+            console.log(targets,targets2d)
             scoreDisplay.textContent =  '';
             countdown.textContent = '';
             const resultScreen = document.createElement('div');
