@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             resultText.style.marginBottom = '20px';
 
             const retryButton = document.createElement('button');
-            retryButton.textContent = 'リトライ';
+            retryButton.textContent = '戻る';
             retryButton.style.padding = '20px';
             retryButton.style.fontSize = '24px';
             retryButton.style.cursor = 'crosshair';
@@ -281,10 +281,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 resultScreen.remove();
                 score = 0;
                 timeLeft = 60;
-                first = 10; 
+                first = 10;
+                titleScreen.style.display = 'flex';
                 countdown.style.color = `white`;
                 updateScore(0);
-                showCountdown(startGame);
+                // showCountdown(startGame);
             });
 
             resultScreen.appendChild(resultText);
