@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
     
     let score = 0;
-    let timeLeft = 60;
+    let timeLeft = 10;
     //3カウント
     function showCountdown(callback) {
         const countdownScreen = document.createElement('div');
@@ -129,6 +129,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function startGame() {
         const targets = [];
+        const targets2d = [];
 
         //タイマー更新
         const timerInterval = setInterval(() => {
@@ -195,6 +196,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         target_2d.remove();
                         target.remove();
                         targets.splice(targets.indexOf(target), 1);
+                        targets2d.splice(targets2d.indexOf(target), 1);
                     }
                 }, 4);
             }else if(timeLeft>6){
@@ -204,6 +206,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         target_2d.remove();
                         target.remove();
                         targets.splice(targets.indexOf(target), 1);
+                        targets2d.splice(targets2d.indexOf(target), 1);
                     }
                 }, 5000);
             }
@@ -226,6 +229,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 target.remove();
                 if (targets.indexOf(target)!==-1){
                     targets.splice(targets.indexOf(target), 1);
+                    targets2d.splice(targets2d.indexOf(target), 1);
                     if (targets.length<8){ //3つ減ると新たに3つスポーン
                         spawnTargets();
                     }
@@ -234,6 +238,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             target.appendChild(target_img)
             document.body.appendChild(target);
             targets.push(target);
+            targets2d.push(target_2d);
             target_2d.style.height = target_img.naturalHeight*size/target_img.naturalWidth;
             document.body.appendChild(target_2d);
         }
