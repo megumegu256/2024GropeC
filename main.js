@@ -1,9 +1,16 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     "use strict";
-    
+    document.addEventListener('mousedown', () => {
+        const bang = new Audio('拳銃を撃つ.mp3')
+        bang.playbackRate = 2.5;
+        bang.volume = 0.15;
+        bang.play()
+    })
     document.body.style.backgroundColor = 'skyblue'; //背景色
     document.onselectstart = () => false;
-    
+    const BGM = new Audio('BGM.mp3');
+    BGM.volume = 0.3;
+    BGM.loop = 'true';
     
     //河内背景
     const backgroundImage = new Image();
@@ -22,7 +29,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
     const imagesToPreload = ["IMG_4073.png","IMG_4074.png","IMG_4075.png","IMG_4076.png"];
     imagesToPreload.forEach(preloadImage);
-    const sound = [new Audio('5ポイント.mp3'),new Audio('3ポイント.mp3'),new Audio('1ポイント.mp3')]
     //ブラウザに対応
     if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
@@ -59,6 +65,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     titleScreen.appendChild(startButton);
     backgroundImage.addEventListener('load',()=>{
         document.body.appendChild(titleScreen);
+        BGM.play();
     })
 
     startButton.addEventListener('click', () => {
@@ -216,6 +223,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (color === 0) {
                 target_img.src = "IMG_4076.png";
                 target.Audio = new Audio('5ポイント.mp3')
+                target.Audio.volume = 0.6;
             } else if (color === 1) {
                 target_img.src= "IMG_4075.png";
                 target.Audio = new Audio('3ポイント.mp3')
@@ -230,7 +238,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 killedScore(target);
                 target_2d.remove();
                 target.remove();
-                target.Audio.play();
                 if (targets.indexOf(target)!==-1){
                     targets.splice(targets.indexOf(target), 1);
                     targets2d.splice(targets2d.indexOf(target_2d), 1);
@@ -238,6 +245,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         spawnTargets();
                     }
                 }
+                setTimeout(() => {
+                    target.Audio.play();
+                }, 100);
             });
             target.appendChild(target_img)
             document.body.appendChild(target);
