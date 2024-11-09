@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     "use strict";
+    const BGM = new Audio('BGM.mp3');
     document.addEventListener('mousedown', () => {
         const bang = new Audio('拳銃を撃つ.mp3')
         bang.playbackRate = 2.5;
@@ -8,11 +9,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     })
     document.body.style.backgroundColor = 'skyblue'; //背景色
     document.onselectstart = () => false;
-    const BGM = new Audio('BGM.mp3');
     BGM.volume = 0.3;
-    BGM.muted = true;
+    // BGM.muted = true;
     BGM.loop = 'true';
-    
+    document.addEventListener('mouseover',() => {
+        BGM.play();
+    })
     //河内背景
     const backgroundImage = new Image();
     backgroundImage.src = 'IMG_4073.png';
@@ -40,10 +42,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     } else if (document.documentElement.msRequestFullscreen) {
         document.documentElement.msRequestFullscreen();
     }
-
+    
     //スクロールを無効
     document.body.style.overflow = 'hidden';
-
+    
     //タイトル画面
     const titleScreen = document.createElement('div');
     titleScreen.style.position = 'absolute';
@@ -62,20 +64,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
     startButton.style.padding = '20px';
     startButton.style.fontSize = '24px';
     startButton.style.cursor = 'crosshair';
-
+    
     titleScreen.appendChild(startButton);
     backgroundImage.addEventListener('load',()=>{
         document.body.appendChild(titleScreen);
         BGM.play();
-        setTimeout(() => {
-            BGM.muted = false;
-        }, 100);
     })
-
+    
     startButton.addEventListener('click', () => {
         titleScreen.style.display = 'none';
         prepared.play();
         showCountdown(startGame);
+        // BGM.muted = false;
     });
     
     let score = 0;
@@ -94,14 +94,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
         countdownScreen.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
         countdownScreen.style.zIndex = '-1';
         document.body.appendChild(countdownScreen);
-
+        
         let countdownValue = 3;
         const countdownText = document.createElement('div');
         countdownText.textContent = countdownValue;
         countdownText.style.fontSize = '48px';
         countdownText.style.color = 'white';
         countdownScreen.appendChild(countdownText);
-
+        
         const countdownInterval = setInterval(() => {
             countdownValue--;
             if (countdownValue > 0) {
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }, 1000);
     }
     let first=10;
-
+    
     //タイマー表示
     const countdown = document.createElement('div');
     countdown.style.position = 'absolute';
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     countdown.style.color = 'white';
     countdown.style.zIndex = '-3';
     document.body.appendChild(countdown);
-
+    
     //スコア表示
     const scoreDisplay = document.createElement('div');
     scoreDisplay.style.position = 'absolute';
@@ -136,12 +136,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     scoreDisplay.style.color = 'white';
     scoreDisplay.style.zIndex = '-3';
     document.body.appendChild(scoreDisplay);
-
-
+    
+    
     function startGame() {
         const targets = [];
         const targets2d = [];
-
+        
         //タイマー更新
         const timerInterval = setInterval(() => {
             timeLeft--;
@@ -150,10 +150,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
                 document.body.style.backgroundColor = 'skyblue';
+                // BGM.muted = true;
                 endGame();
             }
         }, 1000);
-
+        
         //スコア更新関数
         function updateScore(points) {
             score += points;
@@ -178,7 +179,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             strdiv.appendChild(strp);
             document.body.appendChild(strdiv);
         }
-
+        
         //的の作成関数
         function createTarget(score, size, color) {
             const target = document.createElement('div');
@@ -236,7 +237,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 target.Audio = new Audio('1ポイント.mp3')
             }
             
-
+            
             target_2d.addEventListener('mousedown', () => {
                 updateScore(parseInt(target.dataset.score));
                 killedScore(target);
@@ -260,7 +261,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             target_2d.style.height = target_img.naturalHeight*size/target_img.naturalWidth;
             document.body.appendChild(target_2d);
         }
-
+        
         //的スポーン関数
         function spawnTargets() {
             while (targets.length < 10) {
@@ -274,7 +275,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
             }
         }
-
+        
         //ゲーム終了関数
         function endGame() {
             targets2d.forEach(target => target.remove());
@@ -294,13 +295,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
             resultScreen.style.alignItems = 'center';
             resultScreen.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
             resultScreen.style.zIndex = '1000';
-
+            
             const resultText = document.createElement('div');
             resultText.textContent = `Game Over! Score: ${score}`;
             resultText.style.fontSize = '24px';
             resultText.style.color = 'white';
             resultText.style.marginBottom = '20px';
-
+            
             const retryButton = document.createElement('button');
             retryButton.textContent = '戻る';
             retryButton.style.padding = '20px';
@@ -316,7 +317,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 countdown.style.color = `white`;
                 // updateScore(0);
             });
-
+            
             resultScreen.appendChild(resultText);
             resultScreen.appendChild(retryButton);
             document.body.appendChild(resultScreen);
