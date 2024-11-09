@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         bang.volume = 0.15;
         bang.play()
     })
-    document.addEventListener('mousemove',BGM.play())
     document.body.style.backgroundColor = 'skyblue'; //背景色
     document.onselectstart = () => false;
     //河内背景
@@ -65,8 +64,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     titleScreen.appendChild(startButton);
     backgroundImage.addEventListener('load',()=>{
         document.body.appendChild(titleScreen);
-        BGM.play();
     })
+    startButton.addEventListener('mouseover',BGM.play())
     
     startButton.addEventListener('click', () => {
         titleScreen.style.display = 'none';
