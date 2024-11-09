@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         bang.playbackRate = 2.5;
         bang.volume = 0.15;
         bang.play()
-        BGM.play();
     })
+    document.addEventListener('mousemove',BGM.play())
     document.body.style.backgroundColor = 'skyblue'; //背景色
     document.onselectstart = () => false;
     //河内背景
