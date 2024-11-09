@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
     const imagesToPreload = ["IMG_4073.png","IMG_4074.png","IMG_4075.png","IMG_4076.png"];
     imagesToPreload.forEach(preloadImage);
-    
+    const sound = [new Audio('5ポイント.mp3'),new Audio('3ポイント.mp3'),new Audio('1ポイント.mp3')]
     //ブラウザに対応
     if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
@@ -215,10 +215,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
             
             if (color === 0) {
                 target_img.src = "IMG_4076.png";
+                target.Audio = new Audio('5ポイント.mp3')
             } else if (color === 1) {
                 target_img.src= "IMG_4075.png";
+                target.Audio = new Audio('3ポイント.mp3')
             } else if (color === 2) {
                 target_img.src= "IMG_4074.png";
+                target.Audio = new Audio('1ポイント.mp3')
             }
             
 
@@ -227,6 +230,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 killedScore(target);
                 target_2d.remove();
                 target.remove();
+                target.Audio.play();
                 if (targets.indexOf(target)!==-1){
                     targets.splice(targets.indexOf(target), 1);
                     targets2d.splice(targets2d.indexOf(target_2d), 1);
