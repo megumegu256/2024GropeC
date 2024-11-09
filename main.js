@@ -9,6 +9,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         bang.volume = 0.15;
         bang.play()
     })
+    if (confirm("BGMが再生されます")) {
+        BGM.play();
+      } else {
+        BGM.muted = true;
+        BGM.play();
+      }
     document.body.style.backgroundColor = 'skyblue'; //背景色
     document.onselectstart = () => false;
     //河内背景
@@ -65,7 +71,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     backgroundImage.addEventListener('load',()=>{
         document.body.appendChild(titleScreen);
     })
-    startButton.addEventListener('mouseover',BGM.play())
     
     startButton.addEventListener('click', () => {
         titleScreen.style.display = 'none';
