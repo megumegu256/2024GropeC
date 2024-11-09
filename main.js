@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.onselectstart = () => false;
     const BGM = new Audio('BGM.mp3');
     BGM.volume = 0.3;
+    BGM.muted = true;
     BGM.loop = 'true';
     
     //河内背景
@@ -66,6 +67,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     backgroundImage.addEventListener('load',()=>{
         document.body.appendChild(titleScreen);
         BGM.play();
+        BGM.muted = false;
     })
 
     startButton.addEventListener('click', () => {
