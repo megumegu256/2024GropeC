@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.body.style.backgroundColor = 'skyblue'; //背景色
     document.onselectstart = () => false;
     
-
+    
     //河内背景
     const backgroundImage = new Image();
     backgroundImage.src = 'IMG_4073.png';
@@ -20,9 +20,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const img = new Image();
         img.src = src;
     };
-    const imagesToPreload = ["IMG_4074.png","IMG_4075.png","IMG_4076.png"];
+    const imagesToPreload = ["IMG_4073.png","IMG_4074.png","IMG_4075.png","IMG_4076.png"];
     imagesToPreload.forEach(preloadImage);
-
+    
     //ブラウザに対応
     if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     titleScreen.style.alignItems = 'center';
     titleScreen.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
     titleScreen.style.zIndex = '1000';
-
+    const prepared = new Audio('俺は準備オッケー.mp3');
     const startButton = document.createElement('button');
     startButton.textContent = 'ゲームスタート';
     startButton.style.padding = '20px';
@@ -57,10 +57,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     startButton.style.cursor = 'crosshair';
 
     titleScreen.appendChild(startButton);
-    document.body.appendChild(titleScreen);
+    backgroundImage.addEventListener('load',()=>{
+        document.body.appendChild(titleScreen);
+    })
 
     startButton.addEventListener('click', () => {
         titleScreen.style.display = 'none';
+        prepared.play();
         showCountdown(startGame);
     });
     
@@ -96,7 +99,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 clearInterval(countdownInterval);
                 countdownScreen.remove();
                 scoreDisplay.textContent = `Score: ${score}`;
-                countdown.textContent = `Time: ${timeLeft}s`
+                countdown.textContent = `Time: ${timeLeft}s`;
                 callback();
             }
         }, 1000);
@@ -253,6 +256,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         function endGame() {
             targets.forEach(target => target.remove());
             console.log(targets)
+            scoreDisplay.textContent =  '';
+            countdown.textContent = '';
             const resultScreen = document.createElement('div');
             resultScreen.style.position = 'absolute';
             resultScreen.style.top = '0';
@@ -285,15 +290,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 first = 10;
                 titleScreen.style.display = 'flex';
                 countdown.style.color = `white`;
-                updateScore(0);
-                // showCountdown(startGame);
+                // updateScore(0);
             });
 
             resultScreen.appendChild(resultText);
             resultScreen.appendChild(retryButton);
             document.body.appendChild(resultScreen);
         }
-        console.log(document.getElementsByTagName('div'))
         //ゲーム開始
         spawnTargets();
     }
